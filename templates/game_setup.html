@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Witcher Old World Game Setup</title>
+    <style>
+        body {
+            font-size: 35px;
+            font-family: 'Garamond', serif; /* Thematic font */
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Dark background */
+            color: #ddd; /* Light text color for contrast */
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #cda34f; /* Gold color for headers */
+        }
+        .section {
+            background-color: #262626; /* Slightly lighter dark background for sections */
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #444; /* Subtle border for the sections */
+        }
+        button {
+            background-color: #6b8e23; /* Earthy green color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s; /* Smooth transition for button hover */
+        }
+        button:hover {
+            background-color: #8da458; /* Lighter green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Witcher Old World Game Setup</h1>
+
+        <form action="/" method="post">
+            <button type="submit">Regenerate Setup</button>
+        </form>
+
+        <!-- Level 1 Monster Allocations -->
+        <div class="section">
+            <h2>Level 1 Monster Allocations</h2>
+            {% for monster, info in results.level_1_monsters.items() %}
+                <p>
+                    <img src="{{ info['image_path'] }}" alt="{{ monster }}" height="200">
+                    <img src="{{ info['LocationImage'] }}" alt="Location {{ info['Location'] }}" height="200">
+                    <br>
+                    {{ monster }}: Terrain - {{ info['Terrain'] }}, Location - {{ info['Location'] }}
+                </p>
+            {% endfor %}
+        </div>
+
+        <!-- Level 2 Monster Allocations -->
+        <div class="section">
+            <h2>Level 2 Monster Allocations</h2>
+            {% for monster, info in results.level_2_monsters.items() %}
+                <p>
+                    <img src="{{ info['image_path'] }}" alt="{{ monster }}" height="200">
+                    <img src="{{ info['LocationImage'] }}" alt="Location {{ info['Location'] }}" height="200">
+                    <br>
+                    {{ monster }}: Terrain - {{ info['Terrain'] }}, Location - {{ info['Location'] }}
+                </p>
+            {% endfor %}
+        </div>
+        
+
+        <!-- Level 3 Monster Allocations -->
+        <div class="section">
+            <h2>Level 3 Monster Allocations</h2>
+            {% for monster, info in results.level_3_monsters.items() %}
+                <p>
+                    <img src="{{ info['image_path'] }}" alt="{{ monster }}" height="200">
+                    <img src="{{ info['LocationImage'] }}" alt="Location {{ info['Location'] }}" height="200">
+                    <br>
+                    {{ monster }}: Terrain - {{ info['Terrain'] }}, Location - {{ info['Location'] }}
+                </p>
+            {% endfor %}
+        </div>
+        
+
+        <!-- Weakness Token Allocations -->
+        <div class="section">
+            <h2>Weakness Token Allocations</h2>
+            {% for terrain, location in results.weakness_tokens.items() %}
+                <p>
+                    <img src="{{ results.weakness_location_images[terrain] }}" alt="Location {{ location }}" height="200">
+                </p>
+            {% endfor %}
+        </div>
+        
+        <!-- Ship Token Locations -->
+        <div class="section">
+            <h2>Ship Token Locations</h2>
+            {% for location in results.ship_locations %}
+                <p>
+                    <img src="{{ results.ship_location_images[location] }}" alt="Location {{ location }}" height="200">
+                </p>
+            {% endfor %}
+        </div>
+
+        <!-- Selected Player Boards -->
+        <div class="section">
+            <h2>Selected Player Boards</h2>
+            {% for board in results.player_boards %}
+                <p>
+                    <img src="{{ results.player_board_images[board] }}" alt="{{ board }}" height="300">
+                    - {{ board }}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
