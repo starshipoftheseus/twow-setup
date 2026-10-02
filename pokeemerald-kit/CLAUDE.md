@@ -1,0 +1,32 @@
+# CLAUDE.md — pokeemerald-expansion hack
+
+This is a ROM hack built on rh-hideout/pokeemerald-expansion (a C decompilation of Pokémon Emerald for GBA).
+
+## Read first
+- `design/` holds the plan for this hack. Check it before inventing story, names, teams or balance numbers. If it doesn't cover something, ask.
+- `docs/` holds the upstream tutorials. Prefer them over guesses about how a system works.
+
+## Build & verify
+- Build: `make -j$(nproc)` → `pokeemerald.gba`. Run it after every change and fix all errors and new warnings before reporting done.
+- Tests: `make check -j$(nproc)` runs the battle/engine test suite. Run it after any battle, move, ability or item change.
+- Never say a change works unless it built. You can't playtest; tell me exactly what to check in the emulator.
+
+## Where things live
+- Config toggles: `include/config/*.h` (battle gen mechanics, features). Prefer flipping a config over editing engine code.
+- Species data: `src/data/pokemon/species_info/`; learnsets: `src/data/pokemon/`
+- Trainers: `src/data/trainers.party` (text format)
+- Moves / abilities / items: `src/data/moves_info.h`, `src/data/abilities.h`, `src/data/items.h`
+- Wild encounters: `src/data/wild_encounters.json`
+- Maps & scripts: `data/maps/<Map>/` (`map.json`, `scripts.inc` or `scripts.pory`)
+- Flags / vars: `include/constants/flags.h`, `include/constants/vars.h`
+
+## Rules
+- Maps, map layouts, warps and object placement are edited in **Porymap**, not by hand-editing `map.json`/layouts. You may edit a map's scripts.
+- New flags/vars: reuse an unused slot (`FLAG_UNUSED_*` / `VAR_UNUSED_*`) and `#define` a descriptive name for it. Never repurpose a flag the game still uses.
+- New scripts: write Poryscript (`.pory`) if this repo uses it; otherwise follow existing `.inc` style.
+- Keep engine changes minimal and isolated so upstream expansion updates still merge. Don't reformat or rename upstream code.
+- Don't touch `tools/`, the Makefile or generated files unless asked.
+- One task at a time; small diffs. Summarise what you changed and which files.
+
+## Git
+- I commit before each task. Don't commit or push unless I ask.
